@@ -318,7 +318,7 @@ void DataTransformer<Dtype>::Transform(const cv::Mat& cv_img,
     CHECK_EQ(img_width, width);
   }
 
-  TEST IMAGE CROP OUTPUT
+  // TEST IMAGE CROP OUTPUT
   // if (phase_ == TRAIN){
   //   std::string img_path = ("/home/gabriel/tmp/tmp_layer_imgs/img");
   //   img_path = img_path + boost::lexical_cast<std::string>(rand()*10000);
