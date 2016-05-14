@@ -80,6 +80,27 @@ cv::Mat ReadImageToCVMat(const string& filename,
     LOG(ERROR) << "Could not open or find file " << filename;
     return cv_img_origin;
   }
+  
+  //Resize small images on-the-fly!
+  int min = 224;
+  if(cv_img_origin.rows < min || cv_img_origin.cols < min){
+    // LOG(INFO) << filename;
+    // LOG(INFO) << "Scaling Image: (" << cv_img_origin.cols << "x" << cv_img_origin.rows << ")";
+    int h = cv_img_origin.rows;
+    int w = cv_img_origin.cols;
+    int new_w = w, new_h = h;
+
+    if(h < w){
+      new_h = min;
+      new_w = (new_h * w) / h;
+    }else{
+      new_w = min;
+      new_h = (new_w * h) / w;
+    }
+    cv::resize(cv_img_origin, cv_img_origin, cv::Size(new_w, new_h));
+    // LOG(INFO) << "New Size: (" << new_w << "x" << new_h << ")";
+  }
+
   if (height > 0 && width > 0) {
     cv::resize(cv_img_origin, cv_img, cv::Size(width, height));
   } else {
